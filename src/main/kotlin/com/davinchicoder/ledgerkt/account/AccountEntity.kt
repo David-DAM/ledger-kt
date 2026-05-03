@@ -1,11 +1,11 @@
-package com.davinchicoder.ledgerkt
+package com.davinchicoder.ledgerkt.account
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import java.util.*
 
 @Entity
-data class Account(
+data class AccountEntity(
     @Id
     val id: UUID = UUID.randomUUID(),
 

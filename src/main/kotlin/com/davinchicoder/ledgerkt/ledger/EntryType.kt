@@ -1,4 +1,4 @@
-package com.davinchicoder.ledgerkt
+package com.davinchicoder.ledgerkt.ledger
 
 enum class EntryType {
     DEBIT,

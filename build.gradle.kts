@@ -21,24 +21,27 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-h2console")
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-opentelemetry")
-    implementation("org.springframework.boot:spring-boot-starter-webmvc")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("tools.jackson.module:jackson-module-kotlin")
-    compileOnly("org.projectlombok:lombok")
-    runtimeOnly("com.h2database:h2")
-    annotationProcessor("org.projectlombok:lombok")
-    testImplementation("org.springframework.boot:spring-boot-starter-actuator-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-opentelemetry-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testCompileOnly("org.projectlombok:lombok")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    testAnnotationProcessor("org.projectlombok:lombok")
+    implementation(libs.h2.console)
+    implementation(libs.actuator)
+    implementation(libs.jpa)
+    implementation(libs.opentelemetry)
+    implementation(libs.webmvc)
+    implementation(libs.kotlin.reflect)
+    implementation(libs.jackson.kotlin)
+
+    runtimeOnly(libs.h2)
+
+    testImplementation(libs.actuator.test)
+    testImplementation(libs.jpa.test)
+    testImplementation(libs.opentelemetry.test)
+    testImplementation(libs.webmvc.test)
+
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotest.runner)
+    testImplementation(libs.kotest.assertions)
+
+    testRuntimeOnly(libs.junit.launcher)
+
 }
 
 kotlin {

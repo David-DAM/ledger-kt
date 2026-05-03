@@ -1,3 +1,28 @@
 spring:
   application:
     name: ledger-kt
+  datasource:
+    url: jdbc:h2:mem:ledger
+    driver-class-name: org.h2.Driver
+    username: root
+    password: password
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  logging:
+    export:
+      otlp:
+        enabled: false

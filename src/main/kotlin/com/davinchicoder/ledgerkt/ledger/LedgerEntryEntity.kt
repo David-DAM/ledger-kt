@@ -1,4 +1,4 @@
-package com.davinchicoder.ledgerkt
+package com.davinchicoder.ledgerkt.ledger
 
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
@@ -9,7 +9,7 @@ import java.time.Instant
 import java.util.*
 
 @Entity
-data class LedgerEntry(
+data class LedgerEntryEntity(
     @Id
     val id: UUID = UUID.randomUUID(),
 
