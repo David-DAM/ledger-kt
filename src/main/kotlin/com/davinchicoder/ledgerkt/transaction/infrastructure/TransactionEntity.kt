@@ -2,10 +2,12 @@ package com.davinchicoder.ledgerkt.transaction.infrastructure
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
+import jakarta.persistence.Table
 import java.math.BigDecimal
 import java.time.Instant
 import java.util.*
 
+@Table(name = "transactions")
 @Entity
 data class TransactionEntity(
     @Id

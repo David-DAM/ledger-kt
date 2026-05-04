@@ -8,6 +8,7 @@ class TransactionRepository(
     private val repository: TransactionQueryRepository
 ) {
     fun getByIdempotencyKey(idempotencyKey: UUID) = repository.findByIdempotencyKey(idempotencyKey)
+    fun getAll() = repository.findAll()
     fun save(entry: TransactionEntity) = repository.save(entry)
 
 }

@@ -1,13 +1,11 @@
 package com.davinchicoder.ledgerkt.ledger
 
-import jakarta.persistence.Entity
-import jakarta.persistence.EnumType
-import jakarta.persistence.Enumerated
-import jakarta.persistence.Id
+import jakarta.persistence.*
 import java.math.BigDecimal
 import java.time.Instant
 import java.util.*
 
+@Table(name = "ledger_entries")
 @Entity
 data class LedgerEntryEntity(
     @Id

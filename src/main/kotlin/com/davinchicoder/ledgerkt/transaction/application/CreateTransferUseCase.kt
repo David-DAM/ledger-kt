@@ -29,7 +29,7 @@ class CreateTransferUseCase(
         if (existingTransaction.isPresent) {
             log.info("Transaction already exists")
             return CreateTransferResponse(
-                transferId = existingTransaction.get().id,
+                id = existingTransaction.get().id,
                 createdAt = existingTransaction.get().createdAt
             )
         }
@@ -70,7 +70,7 @@ class CreateTransferUseCase(
         log.info("Transfer created successfully with id ${saved.id}")
 
         return CreateTransferResponse(
-            transferId = saved.id,
+            id = saved.id,
             createdAt = saved.createdAt
         )
     }

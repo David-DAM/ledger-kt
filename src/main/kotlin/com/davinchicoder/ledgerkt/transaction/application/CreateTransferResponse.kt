@@ -4,6 +4,6 @@ import java.time.Instant
 import java.util.*
 
 data class CreateTransferResponse(
-    val transferId: UUID,
+    val id: UUID,
     val createdAt: Instant,
 )
