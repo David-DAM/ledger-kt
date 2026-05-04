@@ -28,6 +28,7 @@ dependencies {
     implementation(libs.webmvc)
     implementation(libs.kotlin.reflect)
     implementation(libs.jackson.kotlin)
+    implementation(libs.corutines)
 
     runtimeOnly(libs.h2)
 

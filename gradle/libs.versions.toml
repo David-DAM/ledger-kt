@@ -1,11 +1,13 @@
 [versions]
 mockk = "1.14.9"
 kotest = "6.1.11"
+corutines = "1.10.2"
 
 [libraries]
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-runner = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+corutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "corutines" }
 
 junit-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 h2-console = { module = "org.springframework.boot:spring-boot-h2console" }

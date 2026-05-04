@@ -28,10 +28,7 @@ class CreateTransferUseCase(
 
         if (existingTransaction.isPresent) {
             log.info("Transaction already exists")
-            return CreateTransferResponse(
-                id = existingTransaction.get().id,
-                createdAt = existingTransaction.get().createdAt
-            )
+            return existingTransaction.get().toCreateTransferResponse()
         }
 
         val fromAccount = accountRepository.getAccount(request.fromAccountId)
@@ -42,37 +39,38 @@ class CreateTransferUseCase(
             throw IllegalArgumentException("Account not found")
         }
 
+        val from = fromAccount.get()
+        val to = toAccount.get()
+
         val transaction = TransactionEntity(
             idempotencyKey = request.idempotencyKey,
-            fromAccount = fromAccount.get().id,
-            toAccount = toAccount.get().id,
+            fromAccount = from.id,
+            toAccount = to.id,
             amount = request.amount,
         )
 
         val saved = transactionRepository.save(transaction)
 
-        ledgerRepository.save(
-            LedgerEntryEntity(
-                amount = request.amount,
-                type = EntryType.DEBIT,
-                accountId = fromAccount.get().id
+        ledgerRepository.saveAll(
+            listOf(
+                LedgerEntryEntity(
+                    amount = request.amount,
+                    type = EntryType.DEBIT,
+                    accountId = from.id
+                ),
+                LedgerEntryEntity(
+                    amount = request.amount,
+                    type = EntryType.CREDIT,
+                    accountId = to.id
+                )
             )
         )
 
-        ledgerRepository.save(
-            LedgerEntryEntity(
-                amount = request.amount,
-                type = EntryType.CREDIT,
-                accountId = toAccount.get().id
-            )
-        )
+
 
         log.info("Transfer created successfully with id ${saved.id}")
 
-        return CreateTransferResponse(
-            id = saved.id,
-            createdAt = saved.createdAt
-        )
+        return saved.toCreateTransferResponse()
     }
 
 }

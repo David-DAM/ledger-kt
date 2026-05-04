@@ -9,5 +9,6 @@ class AccountRepository(
 ) {
 
     fun getAccount(accountId: UUID) = repository.findById(accountId)
+    fun getAll() = repository.findAll()
 
 }
