@@ -18,9 +18,10 @@ class TransactionScheduler {
     fun readTransaction() {
         log.info("Reading transaction")
 
-        val transactions = File("src/main/resources/transactions.csv")
+        File("src/main/resources/transactions.csv")
             .useLines { lines ->
-                lines.drop(1)
+                lines
+                    .drop(1)
                     .map { line ->
                         val parts = line.split(",")
                         Transaction(
@@ -31,10 +32,11 @@ class TransactionScheduler {
                             idempotencyKey = UUID.randomUUID(),
                             createdAt = Instant.now()
                         )
-                    }.toList()
+                        log.info("Transaction: $line")
+                    }
             }
 
-        log.info("Final transactions: $transactions")
+        log.info("Final transactions processed")
     }
 
 }
