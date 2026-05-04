@@ -2,12 +2,14 @@ package com.davinchicoder.ledgerkt.transaction.infrastructure.scheduler
 
 import com.davinchicoder.ledgerkt.common.logger
 import com.davinchicoder.ledgerkt.transaction.domain.Transaction
+import org.springframework.context.annotation.Profile
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import java.io.File
 import java.time.Instant
 import java.util.*
 
+@Profile("!test")
 @Component
 class TransactionScheduler {
     companion object {

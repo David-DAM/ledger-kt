@@ -5,10 +5,12 @@ import com.davinchicoder.ledgerkt.common.logger
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
+import org.springframework.context.annotation.Profile
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 
+@Profile("!test")
 @Component
 class LedgerScheduler(
     private val ledgerEntryRepository: LedgerEntryRepository,
