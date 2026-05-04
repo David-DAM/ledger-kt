@@ -1,6 +1,6 @@
-package com.davinchicoder.ledgerkt.ledger
+package com.davinchicoder.ledgerkt.ledger.infrastructure
 
-import com.davinchicoder.ledgerkt.account.AccountRepository
+import com.davinchicoder.ledgerkt.account.infrastructure.AccountRepository
 import com.davinchicoder.ledgerkt.common.logger
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Semaphore

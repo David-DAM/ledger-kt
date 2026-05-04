@@ -1,12 +1,12 @@
 package com.davinchicoder.ledgerkt.transaction.application
 
-import com.davinchicoder.ledgerkt.account.AccountRepository
+import com.davinchicoder.ledgerkt.account.infrastructure.AccountRepository
 import com.davinchicoder.ledgerkt.common.logger
-import com.davinchicoder.ledgerkt.ledger.EntryType
-import com.davinchicoder.ledgerkt.ledger.LedgerEntryEntity
-import com.davinchicoder.ledgerkt.ledger.LedgerEntryRepository
-import com.davinchicoder.ledgerkt.transaction.infrastructure.TransactionEntity
-import com.davinchicoder.ledgerkt.transaction.infrastructure.TransactionRepository
+import com.davinchicoder.ledgerkt.ledger.domain.EntryType
+import com.davinchicoder.ledgerkt.ledger.domain.LedgerEntry
+import com.davinchicoder.ledgerkt.ledger.infrastructure.LedgerEntryRepository
+import com.davinchicoder.ledgerkt.transaction.domain.Transaction
+import com.davinchicoder.ledgerkt.transaction.infrastructure.database.TransactionRepository
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
@@ -26,26 +26,21 @@ class CreateTransferUseCase(
         log.info("Creating transfer for ${request.fromAccountId} to ${request.toAccountId}")
         val existingTransaction = transactionRepository.getByIdempotencyKey(request.idempotencyKey)
 
-        if (existingTransaction.isPresent) {
+        existingTransaction?.let {
             log.info("Transaction already exists")
-            return existingTransaction.get().toCreateTransferResponse()
+            return it.toCreateTransferResponse()
         }
 
         val fromAccount = accountRepository.getAccount(request.fromAccountId)
+            ?: throw IllegalArgumentException("From account not found")
+
         val toAccount = accountRepository.getAccount(request.toAccountId)
+            ?: throw IllegalArgumentException("To account not found")
 
-        if (fromAccount.isEmpty || toAccount.isEmpty) {
-            log.error("Account not found")
-            throw IllegalArgumentException("Account not found")
-        }
-
-        val from = fromAccount.get()
-        val to = toAccount.get()
-
-        val transaction = TransactionEntity(
+        val transaction = Transaction(
             idempotencyKey = request.idempotencyKey,
-            fromAccount = from.id,
-            toAccount = to.id,
+            fromAccount = fromAccount.id,
+            toAccount = toAccount.id,
             amount = request.amount,
         )
 
@@ -53,20 +48,18 @@ class CreateTransferUseCase(
 
         ledgerRepository.saveAll(
             listOf(
-                LedgerEntryEntity(
+                LedgerEntry(
                     amount = request.amount,
                     type = EntryType.DEBIT,
-                    accountId = from.id
+                    accountId = fromAccount.id
                 ),
-                LedgerEntryEntity(
+                LedgerEntry(
                     amount = request.amount,
                     type = EntryType.CREDIT,
-                    accountId = to.id
+                    accountId = toAccount.id
                 )
             )
         )
-
-
 
         log.info("Transfer created successfully with id ${saved.id}")
 

@@ -8,9 +8,4 @@ data class CreateTransferRequest(
     val fromAccountId: UUID,
     val toAccountId: UUID,
     val amount: BigDecimal,
-) {
-    init {
-        require(amount > BigDecimal.ZERO) { "Amount must be positive" }
-        require(fromAccountId != toAccountId) { "From and to account cannot be the same" }
-    }
-}
+)

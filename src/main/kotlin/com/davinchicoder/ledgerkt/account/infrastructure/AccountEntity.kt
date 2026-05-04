@@ -1,4 +1,4 @@
-package com.davinchicoder.ledgerkt.account
+package com.davinchicoder.ledgerkt.account.infrastructure
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Id

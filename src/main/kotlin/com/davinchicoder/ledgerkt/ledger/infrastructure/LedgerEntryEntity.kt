@@ -1,5 +1,6 @@
-package com.davinchicoder.ledgerkt.ledger
+package com.davinchicoder.ledgerkt.ledger.infrastructure
 
+import com.davinchicoder.ledgerkt.ledger.domain.EntryType
 import jakarta.persistence.*
 import java.math.BigDecimal
 import java.time.Instant

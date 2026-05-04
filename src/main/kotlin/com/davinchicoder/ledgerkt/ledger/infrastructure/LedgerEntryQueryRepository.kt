@@ -1,4 +1,4 @@
-package com.davinchicoder.ledgerkt.ledger
+package com.davinchicoder.ledgerkt.ledger.infrastructure
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query

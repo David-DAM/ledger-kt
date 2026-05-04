@@ -1,7 +1,7 @@
 package com.davinchicoder.ledgerkt.IT
 
 import com.davinchicoder.ledgerkt.transaction.application.CreateTransferRequest
-import com.davinchicoder.ledgerkt.transaction.infrastructure.TransactionRepository
+import com.davinchicoder.ledgerkt.transaction.infrastructure.database.TransactionRepository
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
