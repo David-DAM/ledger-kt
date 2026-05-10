@@ -13,14 +13,17 @@ fun Transaction.toEntity() = TransactionEntity(id, idempotencyKey, fromAccount, 
 
 fun TransactionEntity.toDomain() = Transaction(id, idempotencyKey, fromAccount, toAccount, amount, createdAt)
 
-fun transactionFromCsv(parts: List<String>) = Transaction(
-    UUID.randomUUID(),
-    UUID.randomUUID(),
-    UUID.fromString(parts[0]),
-    UUID.fromString(parts[1]),
-    parts[2].toBigDecimal(),
-    Instant.now()
-)
+fun transactionFromCsv(line: String): Transaction {
+    val parts = line.split(",")
+    return Transaction(
+        UUID.randomUUID(),
+        UUID.randomUUID(),
+        UUID.fromString(parts[0]),
+        UUID.fromString(parts[1]),
+        parts[2].toBigDecimal(),
+        Instant.now()
+    )
+}
 
 fun CreateTransferDto.toRequest() = CreateTransferRequest(idempotencyKey, fromAccountId, toAccountId, amount)
 
