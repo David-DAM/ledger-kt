@@ -1,13 +1,11 @@
 package com.davinchicoder.ledgerkt.transaction.infrastructure.scheduler
 
 import com.davinchicoder.ledgerkt.common.logger
-import com.davinchicoder.ledgerkt.transaction.domain.Transaction
+import com.davinchicoder.ledgerkt.transaction.infrastructure.transactionFromCsv
 import org.springframework.context.annotation.Profile
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import java.io.File
-import java.time.Instant
-import java.util.*
 
 @Profile("!test")
 @Component
@@ -26,15 +24,8 @@ class TransactionScheduler {
                     .drop(1)
                     .map { line ->
                         val parts = line.split(",")
-                        Transaction(
-                            fromAccount = UUID.fromString(parts[0]),
-                            toAccount = UUID.fromString(parts[1]),
-                            amount = parts[2].toBigDecimal(),
-                            id = UUID.randomUUID(),
-                            idempotencyKey = UUID.randomUUID(),
-                            createdAt = Instant.now()
-                        )
-                        log.info("Transaction: $line")
+                        val transaction = transactionFromCsv(parts)
+                        log.info("Transaction: $transaction")
                     }
             }
 
