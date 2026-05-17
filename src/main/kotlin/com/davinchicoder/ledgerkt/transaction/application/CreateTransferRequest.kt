@@ -8,4 +8,5 @@ data class CreateTransferRequest(
     val fromAccountId: UUID,
     val toAccountId: UUID,
     val amount: BigDecimal,
+    val currency: Currency,
 )

@@ -31,7 +31,8 @@ class TransferIT {
             idempotencyKey = UUID.randomUUID(),
             fromAccountId = UUID.fromString("3fa004db-e4c5-457c-901f-3e36ee651f56"),
             toAccountId = UUID.fromString("3fa004db-e4c5-457c-901f-3e36ee651f57"),
-            amount = BigDecimal.TEN
+            amount = BigDecimal.TEN,
+            currency = Currency.getInstance("EUR")
         )
 
         client.post()

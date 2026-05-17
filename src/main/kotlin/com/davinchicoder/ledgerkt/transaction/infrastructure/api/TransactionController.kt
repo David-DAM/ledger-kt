@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@RequestMapping("/api/ledger")
+@RequestMapping("/api/v1/ledger")
 @RestController
 class TransactionController(
     private val transferUseCase: CreateTransferUseCase

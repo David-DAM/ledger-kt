@@ -9,16 +9,18 @@ import java.util.*
 
 @Table(name = "transactions")
 @Entity
-data class TransactionEntity(
+class TransactionEntity(
     @Id
-    val id: UUID = UUID.randomUUID(),
+    var id: UUID = UUID.randomUUID(),
 
-    val idempotencyKey: UUID,
+    var idempotencyKey: UUID,
 
-    val fromAccount: UUID,
-    val toAccount: UUID,
+    var fromAccount: UUID,
+    var toAccount: UUID,
 
-    val amount: BigDecimal,
+    var amount: BigDecimal,
 
-    val createdAt: Instant = Instant.now()
+    var currency: String,
+    var createdAt: Instant = Instant.now()
+
 )

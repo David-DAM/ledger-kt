@@ -15,5 +15,7 @@ data class Transaction(
 
     val amount: BigDecimal,
 
-    val createdAt: Instant = Instant.now()
+    val createdAt: Instant = Instant.now(),
+
+    val currency: Currency
 )

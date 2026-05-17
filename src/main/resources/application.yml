@@ -26,3 +26,7 @@ management:
     export:
       otlp:
         enabled: false
+
+app:
+  client:
+    baseUrl: "https://api.frankfurter.dev/v1"
