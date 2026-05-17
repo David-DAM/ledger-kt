@@ -20,7 +20,8 @@ class TransactionEntity(
 
     var amount: BigDecimal,
 
-    var currency: String,
+    var fromCurrency: String,
+    var toCurrency: String,
     var createdAt: Instant = Instant.now()
 
 )

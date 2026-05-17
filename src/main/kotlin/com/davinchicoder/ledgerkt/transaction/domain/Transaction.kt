@@ -17,5 +17,6 @@ data class Transaction(
 
     val createdAt: Instant = Instant.now(),
 
-    val currency: Currency
+    val fromCurrency: Currency,
+    val toCurrency: Currency,
 )

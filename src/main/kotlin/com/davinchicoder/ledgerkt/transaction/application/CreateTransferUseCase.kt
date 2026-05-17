@@ -40,7 +40,7 @@ class CreateTransferUseCase(
         val toAccount = accountRepository.getAccount(request.toAccountId)
             ?: throw IllegalArgumentException("To account not found")
 
-        val rate = currencyRateCache.get(request.currency.currencyCode)
+        val rate = currencyRateCache.get(request.fromCurrency.currencyCode, request.toCurrency.currencyCode)
 
         val convertedAmount = request.amount.multiply(
             BigDecimal.valueOf(rate)
@@ -51,7 +51,8 @@ class CreateTransferUseCase(
             fromAccount = fromAccount.id,
             toAccount = toAccount.id,
             amount = convertedAmount,
-            currency = request.currency
+            fromCurrency = request.fromCurrency,
+            toCurrency = request.toCurrency,
         )
 
         val saved = transactionRepository.save(transaction)
@@ -59,14 +60,18 @@ class CreateTransferUseCase(
         ledgerRepository.saveAll(
             listOf(
                 LedgerEntry(
-                    amount = convertedAmount,
+                    amount = request.amount,
                     type = EntryType.DEBIT,
-                    accountId = fromAccount.id
+                    accountId = fromAccount.id,
+                    transactionId = saved.id,
+                    currency = request.fromCurrency
                 ),
                 LedgerEntry(
                     amount = convertedAmount,
                     type = EntryType.CREDIT,
-                    accountId = toAccount.id
+                    accountId = toAccount.id,
+                    transactionId = saved.id,
+                    currency = request.toCurrency
                 )
             )
         )

@@ -15,7 +15,8 @@ fun Transaction.toEntity() = TransactionEntity(
     fromAccount = fromAccount,
     toAccount = toAccount,
     amount = amount,
-    currency = currency.currencyCode,
+    fromCurrency = fromCurrency.currencyCode,
+    toCurrency = toCurrency.currencyCode,
     createdAt = createdAt
 )
 
@@ -25,7 +26,8 @@ fun TransactionEntity.toDomain() = Transaction(
     fromAccount = fromAccount,
     toAccount = toAccount,
     amount = amount,
-    currency = Currency.getInstance(currency),
+    fromCurrency = Currency.getInstance(fromCurrency),
+    toCurrency = Currency.getInstance(toCurrency),
     createdAt = createdAt
 )
 
@@ -37,7 +39,8 @@ fun transactionFromCsv(line: String): Transaction {
         fromAccount = UUID.fromString(parts[0]),
         toAccount = UUID.fromString(parts[1]),
         amount = parts[2].toBigDecimal(),
-        currency = Currency.getInstance(parts[3]),
+        fromCurrency = Currency.getInstance(parts[3]),
+        toCurrency = Currency.getInstance(parts[4]),
         createdAt = Instant.now()
     )
 }
@@ -47,7 +50,8 @@ fun CreateTransferDto.toRequest() = CreateTransferRequest(
     fromAccountId = fromAccountId,
     toAccountId = toAccountId,
     amount = amount,
-    currency = currency
+    fromCurrency = fromCurrency,
+    toCurrency = toCurrency
 )
 
 fun CreateTransferResponse.toDto() = CreatedTransferDto(id = id, createdAt = createdAt)

@@ -7,11 +7,11 @@ import java.util.*
 
 @Table(name = "accounts")
 @Entity
-data class AccountEntity(
+class AccountEntity(
     @Id
-    val id: UUID = UUID.randomUUID(),
+    var id: UUID = UUID.randomUUID(),
 
-    val userId: String,
+    var userId: String,
 
-    val currency: String
+    var currency: String
 )

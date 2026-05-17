@@ -9,11 +9,15 @@ data class LedgerEntry(
 
     val id: UUID = UUID.randomUUID(),
 
+    val transactionId: UUID,
+
     val accountId: UUID,
 
     val amount: BigDecimal,
 
     val type: EntryType,
+
+    val currency: Currency,
 
     val createdAt: Instant = Instant.now()
 )

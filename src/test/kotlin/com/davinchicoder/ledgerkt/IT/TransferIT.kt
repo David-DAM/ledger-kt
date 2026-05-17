@@ -32,11 +32,12 @@ class TransferIT {
             fromAccountId = UUID.fromString("3fa004db-e4c5-457c-901f-3e36ee651f56"),
             toAccountId = UUID.fromString("3fa004db-e4c5-457c-901f-3e36ee651f57"),
             amount = BigDecimal.TEN,
-            currency = Currency.getInstance("EUR")
+            fromCurrency = Currency.getInstance("EUR"),
+            toCurrency = Currency.getInstance("USD"),
         )
 
         client.post()
-            .uri("/api/ledger/transfer")
+            .uri("/api/v1/ledger/transfer")
             .body(request)
             .exchange()
             .expectStatus()

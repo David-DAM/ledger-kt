@@ -29,6 +29,8 @@ class TransactionRepositoryTest {
             fromAccount = key,
             toAccount = key,
             amount = BigDecimal.TEN,
+            fromCurrency = "USD",
+            toCurrency = "USD",
             createdAt = createdAt
         )
 
@@ -38,6 +40,8 @@ class TransactionRepositoryTest {
             fromAccount = key,
             toAccount = key,
             amount = BigDecimal.TEN,
+            fromCurrency = Currency.getInstance("USD"),
+            toCurrency = Currency.getInstance("USD"),
             createdAt = createdAt
         )
 

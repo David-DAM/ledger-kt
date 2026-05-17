@@ -23,17 +23,22 @@ class CurrencyRateScheduler(
     fun currencyRate() = runBlocking {
         log.info("Currency exchanges started")
 
-        setOf(
-            "EUR", "GBP", "USD", "CAD", "AUD", "NZD", "JPY",
-        ).map { currency ->
+        val currencies = setOf(
+            "EUR", "GBP", "USD", "JPY",
+        )
+
+        currencies.map { fromCurrency ->
             async(Dispatchers.IO) {
-                val currencyRate = currencyRateClient.getCurrencyRate(currency)
-                currencyRate.onSuccess {
-                    log.info("Exchange for $currency is $it")
-                    currencyCache.set(currency, it)
-                }.onFailure {
-                    log.error("Error fetching currency rate: ${it.message}")
-                }
+                currencies.filter { it != fromCurrency }
+                    .forEach { toCurrency ->
+                        val currencyRate = currencyRateClient.getCurrencyRate(fromCurrency, toCurrency)
+                        currencyRate.onSuccess {
+                            log.info("Exchange for $fromCurrency to $toCurrency is $it")
+                            currencyCache.set(fromCurrency, toCurrency, it)
+                        }.onFailure {
+                            log.error("Error fetching currency rate: ${it.message}")
+                        }
+                    }
             }
         }.awaitAll()
         log.info("Currency exchanges complete")

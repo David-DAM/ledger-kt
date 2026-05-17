@@ -8,7 +8,8 @@ data class CreateTransferDto(
     val fromAccountId: UUID,
     val toAccountId: UUID,
     val amount: BigDecimal,
-    val currency: Currency,
+    val fromCurrency: Currency,
+    val toCurrency: Currency,
 ) {
     init {
         require(amount > BigDecimal.ZERO) { "Amount must be positive" }

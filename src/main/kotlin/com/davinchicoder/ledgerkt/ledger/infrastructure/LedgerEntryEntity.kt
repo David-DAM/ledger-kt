@@ -8,16 +8,20 @@ import java.util.*
 
 @Table(name = "ledger_entries")
 @Entity
-data class LedgerEntryEntity(
+class LedgerEntryEntity(
     @Id
-    val id: UUID = UUID.randomUUID(),
+    var id: UUID = UUID.randomUUID(),
 
-    val accountId: UUID,
+    var transactionId: UUID,
 
-    val amount: BigDecimal,
+    var accountId: UUID,
+
+    var amount: BigDecimal,
+
+    var currency: String,
 
     @Enumerated(EnumType.STRING)
-    val type: EntryType,
+    var type: EntryType,
 
-    val createdAt: Instant = Instant.now()
+    var createdAt: Instant = Instant.now()
 )
