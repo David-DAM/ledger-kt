@@ -26,7 +26,7 @@ class CurrencyRateClient(
                 val uri = request.uri
                 val body = String(response.body.readAllBytes())
                 log.error("API returned error status $statusCode. Response body: $body. Request URI: $uri")
-                throw IllegalStateException("Currency API error: $statusCode - $body")
+                error("Currency API error: $statusCode - $body")
             }
             .body<CurrencyRateResponse>()
             ?: error("Empty response")
